@@ -14,6 +14,10 @@
 
 </div>
 
+<p align="center">
+  <img src="assets/banner.png" width="100%" alt="Resume & Interview Analysis App">
+</p>
+
 ---
 
 ## 📖 Overview
@@ -37,6 +41,10 @@ A job-hunting assistant built with **FastAPI + LangGraph + Alibaba Cloud DashSco
 | ☁️ Object storage | Reports & transcripts archived to MinIO |
 | ⚡ Caching | ASR results cached in Redis — repeated audio doesn't re-call the model |
 | 🖥 Out of the box | Built-in web frontend + Swagger docs |
+
+## 📸 UI Preview
+
+![Interview Analysis UI](assets/ui-preview.png)
 
 ## 🏗 Architecture Overview
 

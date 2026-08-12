@@ -14,6 +14,10 @@
 
 </div>
 
+<p align="center">
+  <img src="assets/banner.png" width="100%" alt="Resume & Interview Analysis App">
+</p>
+
 ---
 
 ## 📖 项目简介
@@ -36,6 +40,10 @@
 | ☁️ 对象存储 | 报告与转写文本自动归档至 MinIO |
 | ⚡ 缓存加速 | ASR 结果 Redis 缓存，重复音频不重复调用模型 |
 | 🖥 开箱即用 | 内置 Web 前端页面 + Swagger 文档 |
+
+## 📸 界面预览
+
+![面试分析界面](assets/ui-preview.png)
 
 ## 🏗 架构总览
 
