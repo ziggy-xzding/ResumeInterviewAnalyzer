@@ -4,6 +4,8 @@
 
 **AI 简历与面试分析应用** — 上传简历与面试录音，AI 自动生成专业面试分析报告
 
+**中文** | [English](README_EN.md)
+
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.110%2B-009688)
 ![LangGraph](https://img.shields.io/badge/LangGraph-1.0-green)
