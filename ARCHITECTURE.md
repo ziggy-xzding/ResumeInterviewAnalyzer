@@ -21,13 +21,13 @@
 
 ```
 ┌────────────────────────────────────────────────────────────┐
-│  ① API 层      Wolin/api · Wolin/router · Wolin/main       │
+│  ① API 层      Analyzer/api · Analyzer/router · Analyzer/main       │
 │     接口定义、参数校验、异常兜底、前端挂载                   │
 ├────────────────────────────────────────────────────────────┤
-│  ② 业务层      Wolin/core · Wolin/ai · WorkFlow            │
+│  ② 业务层      Analyzer/core · Analyzer/ai · WorkFlow            │
 │     分析核心逻辑、工作流编排（节点 + 状态机）                │
 ├────────────────────────────────────────────────────────────┤
-│  ③ 服务层      Wolin/service · Base/Service                │
+│  ③ 服务层      Analyzer/service · Base/Service                │
 │     邮件 / ASR / MinIO 等业务服务（组合多个 Client）         │
 ├────────────────────────────────────────────────────────────┤
 │  ④ Client 层   Base/Client                                 │
@@ -47,24 +47,24 @@
 ### ① API 层
 | 文件 | 职责 |
 |------|------|
-| `Wolin/main.py` | 创建 FastAPI 应用、注册路由、挂载前端、统一 422 参数校验中文提示 |
-| `Wolin/api/coreApi.py` | 接口定义：`interview_analysis` / `audio_2_text`，文件上传处理与清理 |
-| `Wolin/router/router.py` | 路由注册（前缀 `/interview`）|
+| `Analyzer/main.py` | 创建 FastAPI 应用、注册路由、挂载前端、统一 422 参数校验中文提示 |
+| `Analyzer/api/coreApi.py` | 接口定义：`interview_analysis` / `audio_2_text`，文件上传处理与清理 |
+| `Analyzer/router/router.py` | 路由注册（前缀 `/interview`）|
 
 ### ② 业务层
 | 文件 | 职责 |
 |------|------|
-| `Wolin/core/interviewAnalysis.py` | 核心分析流程：ASR → 缓存 → 报告 → 邮件 |
-| `Wolin/ai/interview/iaState.py` | 工作流状态（报告 / ASR / 简历 / 请求参数），Pydantic 模型 |
-| `Wolin/ai/interview/nodes/iaNodes.py` | 11 个工作流节点函数 |
+| `Analyzer/core/interviewAnalysis.py` | 核心分析流程：ASR → 缓存 → 报告 → 邮件 |
+| `Analyzer/ai/interview/iaState.py` | 工作流状态（报告 / ASR / 简历 / 请求参数），Pydantic 模型 |
+| `Analyzer/ai/interview/nodes/iaNodes.py` | 11 个工作流节点函数 |
 | `WorkFlow/` | LangGraph 二次封装的工作流引擎 |
 
 ### ③ 服务层
 | 文件 | 职责 |
 |------|------|
-| `Wolin/service/emailService.py` | 面试报告邮件（HTML 正文 + 附件 + 内联图）|
-| `Wolin/service/asrService.py` | ASR 服务（带 Redis 缓存）|
-| `Wolin/service/minioService.py` | 转写文本归档 MinIO |
+| `Analyzer/service/emailService.py` | 面试报告邮件（HTML 正文 + 附件 + 内联图）|
+| `Analyzer/service/asrService.py` | ASR 服务（带 Redis 缓存）|
+| `Analyzer/service/minioService.py` | 转写文本归档 MinIO |
 | `Base/Service/asrService.py` | 通用 ASR 处理：切片 → 并发转写 → 清理 |
 
 ### ④ Client 层
@@ -151,7 +151,7 @@ def extract_resume(state): ...
 `WorkFlow/` 在 LangGraph 之上做了二次封装，让业务以**声明式**方式描述流程：
 
 ```python
-# Wolin/ai/interview/nodes/iaNodes.py
+# Analyzer/ai/interview/nodes/iaNodes.py
 def get_ia_node_list():
     return [
         ['extract_resume', 'audio_handle'],                    # 并行组
@@ -206,7 +206,7 @@ def get_ia_node_list():
 ```
 ResumeInterviewAnalyzer/
 ├── main.py / requirements.txt / .env.example / README.md / ARCHITECTURE.md
-├── Wolin/                  # 业务包
+├── Analyzer/                  # 业务包
 │   ├── main.py             #   FastAPI 应用
 │   ├── router/             #   路由注册
 │   ├── api/coreApi.py      #   接口层

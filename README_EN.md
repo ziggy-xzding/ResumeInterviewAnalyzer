@@ -46,7 +46,7 @@ A job-hunting assistant built with **FastAPI + LangGraph + Alibaba Cloud DashSco
 └──────────────────────────┬──────────────────────────────────┘
                            │ HTTP
 ┌──────────────────────────▼──────────────────────────────────┐
-│               API Layer  (Wolin/api/coreApi.py)              │
+│               API Layer  (Analyzer/api/coreApi.py)              │
 │        /interview/interview_analysis   /interviewaudio_2_text│
 └──────────────────────────┬──────────────────────────────────┘
                            │
@@ -130,7 +130,7 @@ FFMPEG_PATH=/path/to/ffmpeg
 ```bash
 python main.py
 # or
-uvicorn Wolin.main:app --host 0.0.0.0 --port 8000
+uvicorn Analyzer.main:app --host 0.0.0.0 --port 8000
 ```
 
 ### 4. Access
@@ -189,7 +189,7 @@ ResumeInterviewAnalyzer/
 ├── requirements.txt
 ├── .env.example               # Env config template
 ├── ARCHITECTURE.md            # Architecture doc (recommended reading)
-├── Wolin/                     # ★ Business package
+├── Analyzer/                     # ★ Business package
 │   ├── main.py                #   FastAPI app & middleware
 │   ├── router/                #   Route registration
 │   ├── api/coreApi.py         #   API definitions

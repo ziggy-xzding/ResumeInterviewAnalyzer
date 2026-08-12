@@ -45,7 +45,7 @@
 └──────────────────────────┬──────────────────────────────────┘
                            │ HTTP
 ┌──────────────────────────▼──────────────────────────────────┐
-│                    API 层  (Wolin/api/coreApi.py)            │
+│                    API 层  (Analyzer/api/coreApi.py)            │
 │        /interview/interview_analysis   /interviewaudio_2_text│
 └──────────────────────────┬──────────────────────────────────┘
                            │
@@ -129,7 +129,7 @@ FFMPEG_PATH=你的_ffmpeg目录
 ```bash
 python main.py
 # 或
-uvicorn Wolin.main:app --host 0.0.0.0 --port 8000
+uvicorn Analyzer.main:app --host 0.0.0.0 --port 8000
 ```
 
 ### 4. 访问
@@ -188,7 +188,7 @@ ResumeInterviewAnalyzer/
 ├── requirements.txt
 ├── .env.example               # 环境配置模板
 ├── ARCHITECTURE.md            # 架构设计文档（推荐阅读）
-├── Wolin/                     # ★ 业务包
+├── Analyzer/                     # ★ 业务包
 │   ├── main.py                #   FastAPI 应用与中间件
 │   ├── router/                #   路由注册
 │   ├── api/coreApi.py         #   接口定义

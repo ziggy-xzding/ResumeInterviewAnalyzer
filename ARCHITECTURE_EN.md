@@ -21,13 +21,13 @@ Five layers, top-down. Each layer only depends on the one below it:
 
 ```
 ┌────────────────────────────────────────────────────────────┐
-│  ① API Layer    Wolin/api · Wolin/router · Wolin/main     │
+│  ① API Layer    Analyzer/api · Analyzer/router · Analyzer/main     │
 │     endpoints, validation, error handling, frontend mount  │
 ├────────────────────────────────────────────────────────────┤
-│  ② Business Layer  Wolin/core · Wolin/ai · WorkFlow       │
+│  ② Business Layer  Analyzer/core · Analyzer/ai · WorkFlow       │
 │     core analysis logic, workflow orchestration (nodes+state)│
 ├────────────────────────────────────────────────────────────┤
-│  ③ Service Layer  Wolin/service · Base/Service            │
+│  ③ Service Layer  Analyzer/service · Base/Service            │
 │     email / ASR / MinIO services (compose multiple Clients)│
 ├────────────────────────────────────────────────────────────┤
 │  ④ Client Layer  Base/Client                              │
@@ -47,24 +47,24 @@ Five layers, top-down. Each layer only depends on the one below it:
 ### ① API Layer
 | File | Responsibility |
 |------|----------------|
-| `Wolin/main.py` | FastAPI app, route registration, frontend mount, friendly 422 validation messages |
-| `Wolin/api/coreApi.py` | Endpoints: `interview_analysis` / `audio_2_text`, file upload handling & cleanup |
-| `Wolin/router/router.py` | Route registration (prefix `/interview`) |
+| `Analyzer/main.py` | FastAPI app, route registration, frontend mount, friendly 422 validation messages |
+| `Analyzer/api/coreApi.py` | Endpoints: `interview_analysis` / `audio_2_text`, file upload handling & cleanup |
+| `Analyzer/router/router.py` | Route registration (prefix `/interview`) |
 
 ### ② Business Layer
 | File | Responsibility |
 |------|----------------|
-| `Wolin/core/interviewAnalysis.py` | Core flow: ASR → cache → report → email |
-| `Wolin/ai/interview/iaState.py` | Workflow state (report / ASR / resume / params), Pydantic models |
-| `Wolin/ai/interview/nodes/iaNodes.py` | 11 workflow node functions |
+| `Analyzer/core/interviewAnalysis.py` | Core flow: ASR → cache → report → email |
+| `Analyzer/ai/interview/iaState.py` | Workflow state (report / ASR / resume / params), Pydantic models |
+| `Analyzer/ai/interview/nodes/iaNodes.py` | 11 workflow node functions |
 | `WorkFlow/` | LangGraph-based workflow engine |
 
 ### ③ Service Layer
 | File | Responsibility |
 |------|----------------|
-| `Wolin/service/emailService.py` | Interview report email (HTML + attachment + inline image) |
-| `Wolin/service/asrService.py` | ASR service with Redis cache |
-| `Wolin/service/minioService.py` | Archive transcripts to MinIO |
+| `Analyzer/service/emailService.py` | Interview report email (HTML + attachment + inline image) |
+| `Analyzer/service/asrService.py` | ASR service with Redis cache |
+| `Analyzer/service/minioService.py` | Archive transcripts to MinIO |
 | `Base/Service/asrService.py` | Generic ASR: slicing → concurrent transcription → cleanup |
 
 ### ④ Client Layer
@@ -151,7 +151,7 @@ def extract_resume(state): ...
 `WorkFlow/` wraps LangGraph so business describes flows declaratively:
 
 ```python
-# Wolin/ai/interview/nodes/iaNodes.py
+# Analyzer/ai/interview/nodes/iaNodes.py
 def get_ia_node_list():
     return [
         ['extract_resume', 'audio_handle'],                    # parallel group
@@ -206,7 +206,7 @@ Node type mapping (`WorkFlow/models/nodes/nodeFactory.py`):
 ```
 ResumeInterviewAnalyzer/
 ├── main.py / requirements.txt / .env.example / README.md / README_EN.md / ARCHITECTURE.md
-├── Wolin/                  # Business package
+├── Analyzer/                  # Business package
 │   ├── main.py             #   FastAPI app
 │   ├── router/             #   Route registration
 │   ├── api/coreApi.py      #   API layer

@@ -4,9 +4,9 @@ Resume & Interview Analysis App - 入口文件
 启动方式:
     python main.py
     或
-    uvicorn Wolin.main:app --host 0.0.0.0 --port 8000
+    uvicorn Analyzer.main:app --host 0.0.0.0 --port 8000
 """
-from Wolin.main import app
+from Analyzer.main import app
 import uvicorn
 
 if __name__ == '__main__':
